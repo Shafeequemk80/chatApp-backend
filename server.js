@@ -67,7 +67,10 @@ io.on("connection", (socket) => {
 });
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin:process.env.FRONTEND_URL,
+  credentials:true
+}));
 app.use(express.json()); // Parse incoming JSON requests
 app.use(helmet()); // Set various HTTP headers for security
 app.use(morgan("common")); // Log HTTP requests
