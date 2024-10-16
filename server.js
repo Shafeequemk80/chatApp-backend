@@ -22,7 +22,7 @@ const server = http.createServer(app); // Use the same server instance for both 
 // Setup Socket.io server
 const io = require('socket.io')(server, {
   cors: {
-    origin: 'https://chatappfrond.farado.store',
+    origin: process.env.FRONTEND_URL,
     methods: ['GET', 'POST'],
     credentials: true,
   },
