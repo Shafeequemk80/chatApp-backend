@@ -20,11 +20,14 @@ const app = express();
 const server = http.createServer(app); // Use the same server instance for both Express and Socket.io
 
 // Setup Socket.io server
-const io = new Server(server, {
+const io = require('socket.io')(server, {
   cors: {
-    origin:process.env.FRONTEND_URL , 
+    origin: 'https://chatappfrond.farado.store',
+    methods: ['GET', 'POST'],
+    credentials: true,
   },
 });
+
 
 // Socket.io logic
 let users = [];
@@ -119,7 +122,8 @@ app.use("/api/users", userRoute);
 app.use("/api/conversations", conversationRoute);
 app.use("/api/messages", messageRoute);
 
+const PORT = process.env.PORT||8800
 // Start the server on port 8800
-server.listen(8800, () => {
-  console.log("Backend server with Socket.io is running on port 8800!");
+server.listen(PORT, () => {
+  console.log(`Backend server with Socket.io is running on port ${PORT}!`);
 });
